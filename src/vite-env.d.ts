@@ -28,9 +28,14 @@ declare module '*.webp' {
 }
 
 // Ensure process.env is typed as per guidelines for API_KEY usage
-declare const process: {
-  env: {
-    API_KEY: string;
-    [key: string]: string | undefined;
+// We augment the global NodeJS namespace to avoid conflicts with existing process declarations
+declare global {
+  namespace NodeJS {
+    interface ProcessEnv {
+      API_KEY: string;
+      [key: string]: string | undefined;
+    }
   }
-};
+}
+
+export {};
